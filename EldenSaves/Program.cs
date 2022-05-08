@@ -10,7 +10,7 @@ namespace EldenSaves
     {
         /// Steven Nash 2022
         /// Elden Saves is a Windows application for creating and managing Elden Ring save copies.
-        
+
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
