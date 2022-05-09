@@ -1,5 +1,5 @@
 # EldenSaves
-## Elden Saves is a Windows application for creating and managing Elden Ring save copies.
+## Elden Saves is a [Windows application](https://github.com/steven-nash/EldenSaves/blob/main/EldenSaves.zip) for creating and managing Elden Ring save copies.
 
 ### Backup Folder
 The backup folder is the directory where save copies will be stored and read from.
@@ -20,3 +20,5 @@ into a new backup folder in the backup directory. This will not overwrite files 
 Choosing to restore a backup save takes the currently selected save backup in the list and copies it
 into the selected save directory (ideally the game's save folder). Before overwriting the game's
 current save, a backup of it is first created in the backup directory.
+
+### A zip with the executable file can be found [here](https://github.com/steven-nash/EldenSaves/blob/main/EldenSaves.zip).
