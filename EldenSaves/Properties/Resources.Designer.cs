@@ -61,7 +61,7 @@ namespace EldenSaves.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backup saved in .
+        ///   Looks up a localized string similar to Backup created in .
         /// </summary>
         internal static string BackupMessage {
             get {
@@ -93,6 +93,15 @@ namespace EldenSaves.Properties {
         internal static string NoFiles {
             get {
                 return ResourceManager.GetString("NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save restored to game.
+        /// </summary>
+        internal static string RestoreMessage {
+            get {
+                return ResourceManager.GetString("RestoreMessage", resourceCulture);
             }
         }
         

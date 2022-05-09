@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using EldenSaves.Properties;
 using System.Configuration;
+using System.Linq;
 
 namespace EldenSaves
 {
@@ -12,8 +13,8 @@ namespace EldenSaves
         private readonly FolderBrowserDialog _backupFolderDialog;
         private readonly FolderBrowserDialog _saveFolderDialog;
         private readonly string _defaultSaveFolder;
-        private string _backupPath;
-        private string _savePath;
+        private string _backupPath = Settings.Default.DefaultBackup;
+        private string _savePath = Settings.Default.DefaultSave;
         
         public Form1()
         {
@@ -101,8 +102,9 @@ namespace EldenSaves
             if(_savePath == null || _backupPath == null) return;
             
             // Save paths as default
-            //Settings.Default.DefaultSave = _savePath;
-            //Settings.Default.Save();
+            Settings.Default.DefaultSave = _savePath;
+            Settings.Default.DefaultBackup = _backupPath;
+            Settings.Default.Save();
             
             // Close current form
             Hide();

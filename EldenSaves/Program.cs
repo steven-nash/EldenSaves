@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EldenSaves.Properties;
 
 namespace EldenSaves
 {
@@ -18,7 +20,15 @@ namespace EldenSaves
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+            //Settings.Default.Reset();
+            
+            // If the folders have previously been set, go straight into the MainForm
+            if(Directory.Exists(Settings.Default.DefaultBackup) && Directory.Exists(Settings.Default.DefaultSave)) 
+                Application.Run(new MainForm(Settings.Default.DefaultBackup, Settings.Default.DefaultSave));
+            // Otherwise start the form that allows the user to set the folders
+            else
+                Application.Run(new Form1());
         }
     }
 }

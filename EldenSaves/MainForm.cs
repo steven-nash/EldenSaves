@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace EldenSaves
     {
         private readonly string _backupPath;
         private readonly string _savePath;
-        
+        private BindingSource _src = new BindingSource();
+        private string[] _backups;
+
         // Form where the main functionality occurs
         public MainForm(string backupPath, string savePath)
         {
@@ -24,11 +27,20 @@ namespace EldenSaves
             _savePath = savePath;
             
             // Set label text for game save folder
-            savePathLabel.Text = savePath;
+            savePathLabel.Text = "From: " + savePath;
+
+            // Set label for the listbox title
+            listTitle.Text = "Saving in: " + _backupPath;
+
+            // Add backup folders to listbox
+            
+            GetBackups();
+            _src.DataSource = _backups;
+            savesList.DataSource = _src;
         }
-        
+
         // Backup current game saves
-        private void Backup(object sender, EventArgs e)
+        private void Backup()
         {
             // New subfolder for backup
             var destination = _backupPath + @"\" + DateTime.Now.ToString("yy-MM-dd HH-mm-ss") + @"\";
@@ -73,12 +85,10 @@ namespace EldenSaves
 
             // Display message informing the user where the backup was saved
             newBackupLabel.Text = Properties.Resources.BackupMessage + destination;
-        }
-        
-        // On click for changeFoldersButton
-        private void changeFolderButton_Click(object sender, EventArgs e)
-        {
-            ChangeFolders();
+            
+            // Refresh listbox
+            GetBackups();
+            _src.ResetBindings(false);
         }
         
         // Change back to Form1 to change folders
@@ -87,6 +97,68 @@ namespace EldenSaves
             Hide();
             var form1 = new Form1();
             form1.Show();
+        }
+        
+        // Add all save backup subdirectories into the listbox
+        private void GetBackups()
+        {
+            _backups = Directory.GetDirectories(_backupPath);
+        }
+        
+        // On click for backupButton
+        private void backupButton_Click(object sender, EventArgs e)
+        {
+            Backup();
+        }
+        
+        // On click for changeFoldersButton
+        private void changeFolderButton_Click(object sender, EventArgs e)
+        {
+            ChangeFolders();
+        }
+
+        // Open the user's backup folder in Explorer
+        private void viewBackupsButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", _backupPath);
+        }
+
+        // Restore a selected backup save into the game's save folder
+        private void restoreButton_Click(object sender, EventArgs e)
+        {
+            // Return if no backup is selected in the listbox
+            if(savesList.SelectedItem == null) return;
+            
+            // Append a backslash to destination path
+            var destination = _savePath + @"\";
+            
+            // Create backup of current save
+            Backup();
+
+            savePathLabel.Text = savesList.GetItemText(savesList.SelectedItem);
+            
+            // Get the files in the selected backup folder
+            var backupFiles = Directory.GetFiles(savesList.GetItemText(savesList.SelectedItem));
+
+            // Overwrite the game's save with the selected backup from the listbox
+            foreach (var backupFile in backupFiles)
+            {
+                try
+                {
+                    File.Copy(backupFile, $"{destination}{Path.GetFileName(backupFile)}", true);
+                }
+                // Notify user of copy error
+                catch (IOException copyError)
+                {
+                    Console.WriteLine(copyError.Message);
+                    MessageBox.Show(Properties.Resources.CopyError,
+                        Properties.Resources.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            
+            // Output message confirming backup restoration
+            restoreLabel.Text = Properties.Resources.RestoreMessage;
         }
     }
 }
