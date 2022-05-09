@@ -114,4 +114,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CopyError" xml:space="preserve">
+    <value>Files could not be copied: files of the same name already exist in the backup directory.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Elden Saves</value>
+  </data>
+  <data name="DirectoryError" xml:space="preserve">
+    <value>Files could not be copied: error creating destination folder.</value>
+  </data>
+  <data name="BackupMessage" xml:space="preserve">
+    <value>Backup saved in </value>
+  </data>
+  <data name="NoFiles" xml:space="preserve">
+    <value>No save files found in selected directory. Please choose another.</value>
+  </data>
 </root>

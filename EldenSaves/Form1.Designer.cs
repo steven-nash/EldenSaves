@@ -39,6 +39,7 @@
             this.backupFolderText = new System.Windows.Forms.Label();
             this.saveFolderText = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
+            this.exampleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // setBackupFolderButton
@@ -52,17 +53,16 @@
             this.setBackupFolderButton.TabIndex = 0;
             this.setBackupFolderButton.Text = "Set Backup Folder";
             this.setBackupFolderButton.UseVisualStyleBackColor = true;
-            this.setBackupFolderButton.Click += new System.EventHandler(this.setBackupFolder);
+            this.setBackupFolderButton.Click += new System.EventHandler(this.SetBackupFolder);
             // 
             // titleText
             // 
             this.titleText.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.titleText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.titleText.Dock = System.Windows.Forms.DockStyle.Top;
             this.titleText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleText.Location = new System.Drawing.Point(0, 0);
             this.titleText.Name = "titleText";
-            this.titleText.Size = new System.Drawing.Size(784, 37);
+            this.titleText.Size = new System.Drawing.Size(784, 44);
             this.titleText.TabIndex = 1;
             this.titleText.Text = "Elden Saves";
             this.titleText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -92,7 +92,7 @@
             // 
             this.label1.Location = new System.Drawing.Point(12, 293);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 23);
+            this.label1.Size = new System.Drawing.Size(308, 23);
             this.label1.TabIndex = 8;
             this.label1.Text = "This is the existing save folder where the game stores its saves";
             // 
@@ -119,7 +119,7 @@
             // backupFolderText
             // 
             this.backupFolderText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.backupFolderText.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backupFolderText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backupFolderText.Location = new System.Drawing.Point(145, 190);
             this.backupFolderText.Name = "backupFolderText";
             this.backupFolderText.Size = new System.Drawing.Size(457, 33);
@@ -130,7 +130,7 @@
             // saveFolderText
             // 
             this.saveFolderText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.saveFolderText.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveFolderText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveFolderText.Location = new System.Drawing.Point(127, 316);
             this.saveFolderText.Name = "saveFolderText";
             this.saveFolderText.Size = new System.Drawing.Size(475, 33);
@@ -140,10 +140,12 @@
             // 
             // continueButton
             // 
-            this.continueButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.continueButton.BackColor = System.Drawing.SystemColors.Window;
             this.continueButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.continueButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.continueButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.continueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continueButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.continueButton.Location = new System.Drawing.Point(0, 512);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(784, 49);
@@ -152,12 +154,23 @@
             this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
+            // exampleLabel
+            // 
+            this.exampleLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.exampleLabel.Location = new System.Drawing.Point(238, 349);
+            this.exampleLabel.Name = "exampleLabel";
+            this.exampleLabel.Size = new System.Drawing.Size(364, 23);
+            this.exampleLabel.TabIndex = 14;
+            this.exampleLabel.Text = "eg.  C:\\Users\\user1\\AppData\\Roaming\\EldenRing\\76561198035474619";
+            this.exampleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.exampleLabel);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.saveFolderText);
             this.Controls.Add(this.backupFolderText);
@@ -173,6 +186,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label exampleLabel;
 
         private System.Windows.Forms.Button continueButton;
 
