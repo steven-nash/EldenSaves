@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using EldenSaves.Properties;
 
@@ -10,11 +7,12 @@ namespace EldenSaves
 {
     static class Program
     {
-        /// Steven Nash 2022
-        /// Elden Saves is a Windows application for creating and managing Elden Ring save copies.
+        // Steven Nash 2022
+        // Elden Saves is a Windows application for creating and managing Elden Ring save copies.
 
-        /// The main entry point for the application.
-        /// </summary>
+        // The main entry point for the application.
+        // If the user doesn't have saved defaults for the backup and game save directories, they are sent
+        // to the folder selection form. Otherwise, they are sent to the main form.
         [STAThread]
         static void Main()
         {

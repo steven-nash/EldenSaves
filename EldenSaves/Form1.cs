@@ -2,12 +2,12 @@
 using System.Windows.Forms;
 using System.IO;
 using EldenSaves.Properties;
-using System.Configuration;
-using System.Linq;
 
 namespace EldenSaves
 {
+    // Steven Nash 2022
     // Form for the user to set their backup folder and game save folder
+    // The selected folders are saved as default
     public partial class Form1 : Form
     {
         private readonly FolderBrowserDialog _backupFolderDialog;
@@ -20,9 +20,6 @@ namespace EldenSaves
         {
             InitializeComponent();
 
-            //Windows.Storage.ApplicationDataContainer localSettings =
-                //Windows.Storage.ApplicationData.Current.LocalSettings;
-            
             _backupFolderDialog = new FolderBrowserDialog();
             _saveFolderDialog = new FolderBrowserDialog();
             continueButton.Enabled = false;

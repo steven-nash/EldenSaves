@@ -8,12 +8,15 @@ namespace EldenSaves
 {
     public partial class MainForm : Form
     {
+        // Steven Nash 2022
+        // Form where the main functionality occurs
+        // The user can create backups and select them to restore as the game's save file
+        
         private readonly string _backupPath;
         private readonly string _savePath;
         private BindingSource _src = new BindingSource();
         private string[] _backups;
-
-        // Form where the main functionality occurs
+        
         public MainForm(string backupPath, string savePath)
         {
             InitializeComponent();
