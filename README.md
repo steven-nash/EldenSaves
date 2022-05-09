@@ -1,12 +1,12 @@
 # EldenSaves
-### Elden Saves is a Windows application for creating and managing Elden Ring save copies.
+## Elden Saves is a Windows application for creating and managing Elden Ring save copies.
 
-#### Backup Folder
+### Backup Folder
 The backup folder is the directory where save copies will be stored and read from.
 Backups saves will be created in new folders within this directory, and are named according to the
 date and time they are created.
 
-#### Save Folder
+### Save Folder
 The save folder is the directory of the Elden Ring's game save files. This is automatically created
 by the game, and is defaulted to C:\Users\(current user)\AppData\Roaming\EldenRing.
 In the normal circumstance that there is only one save folder in this location, it is set as the default.
