@@ -132,4 +132,7 @@
   <data name="RestoreMessage" xml:space="preserve">
     <value>Save restored to game</value>
   </data>
+  <data name="ItemNotFound" xml:space="preserve">
+    <value>Save not restored: The selected save has been moved or deleted</value>
+  </data>
 </root>

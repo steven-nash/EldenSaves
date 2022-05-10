@@ -88,6 +88,15 @@ namespace EldenSaves.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save not restored: The selected save has been moved or deleted.
+        /// </summary>
+        internal static string ItemNotFound {
+            get {
+                return ResourceManager.GetString("ItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No save files found in selected directory. Please choose another..
         /// </summary>
         internal static string NoFiles {

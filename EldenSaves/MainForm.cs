@@ -14,7 +14,6 @@ namespace EldenSaves
         
         private readonly string _backupPath;
         private readonly string _savePath;
-        private BindingSource _src = new BindingSource();
         private string[] _backups;
         
         public MainForm(string backupPath, string savePath)
@@ -38,8 +37,7 @@ namespace EldenSaves
             // Add backup folders to listbox
             
             GetBackups();
-            _src.DataSource = _backups;
-            savesList.DataSource = _src;
+            savesList.DataSource = _backups;
         }
 
         // Backup current game saves
@@ -53,13 +51,11 @@ namespace EldenSaves
             // Check if new directory was created
             if (!Directory.Exists(destination))
             {
-                Console.WriteLine(Properties.Resources.DirectoryError);
-                MessageBox.Show(Properties.Resources.DirectoryError,
-                    Properties.Resources.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DisplayError(Properties.Resources.DirectoryError);
                 return;
             }
-            
-            // Get save files from the game save directory
+
+                // Get save files from the game save directory
             var saveFiles = Directory.EnumerateFiles(_savePath, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".sl2") || s.EndsWith(".sl2.bak") || s.EndsWith(".vdf")).ToArray();
             
             // Output message and abort if no save files are found in the selected folder
@@ -80,8 +76,7 @@ namespace EldenSaves
                 catch (IOException copyError)
                 {
                     Console.WriteLine(copyError.Message);
-                    MessageBox.Show(Properties.Resources.CopyError,
-                        Properties.Resources.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DisplayError(Properties.Resources.CopyError);
                     return;
                 }
             }
@@ -91,7 +86,7 @@ namespace EldenSaves
             
             // Refresh listbox
             GetBackups();
-            _src.ResetBindings(false);
+            savesList.DataSource = _backups;
         }
         
         // Change back to Form1 to change folders
@@ -106,6 +101,16 @@ namespace EldenSaves
         private void GetBackups()
         {
             _backups = Directory.GetDirectories(_backupPath);
+        }
+        
+        // Display error message in popout window
+        private static void DisplayError(string error)
+        {
+            // Make sure error message exists in Resources
+            if(error == null) return;
+            
+            MessageBox.Show(error,
+                Properties.Resources.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         
         // On click for backupButton
@@ -129,19 +134,32 @@ namespace EldenSaves
         // Restore a selected backup save into the game's save folder
         private void restoreButton_Click(object sender, EventArgs e)
         {
-            // Return if no backup is selected in the listbox
-            if(savesList.SelectedItem == null) return;
+            // Get the selected save
+            var selectedItem = savesList.GetItemText(savesList.SelectedItem);
             
             // Append a backslash to destination path
             var destination = _savePath + @"\";
             
-            // Create backup of current save
+            // Return if no backup is selected in the listbox, or if the save path is missing
+            if(savesList.SelectedItem == null || !Directory.Exists(_savePath)) return;
+            
+            // Display error message if the selected item has been moved or deleted
+            if (!Directory.Exists(selectedItem))
+            {
+                DisplayError(Properties.Resources.ItemNotFound);
+                
+                // Update listbox
+                GetBackups();
+                savesList.DataSource = _backups;
+                
+                return;
+            }
+
+                // Create backup of current save
             Backup();
 
-            savePathLabel.Text = savesList.GetItemText(savesList.SelectedItem);
-            
             // Get the files in the selected backup folder
-            var backupFiles = Directory.GetFiles(savesList.GetItemText(savesList.SelectedItem));
+            var backupFiles = Directory.GetFiles(selectedItem);
 
             // Overwrite the game's save with the selected backup from the listbox
             foreach (var backupFile in backupFiles)
@@ -153,9 +171,8 @@ namespace EldenSaves
                 // Notify user of copy error
                 catch (IOException copyError)
                 {
-                    Console.WriteLine(copyError.Message);
-                    MessageBox.Show(Properties.Resources.CopyError,
-                        Properties.Resources.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(copyError);
+                    DisplayError(Properties.Resources.CopyError);
                     return;
                 }
             }
