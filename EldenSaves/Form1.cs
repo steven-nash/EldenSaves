@@ -22,7 +22,9 @@ namespace EldenSaves
 
             _backupFolderDialog = new FolderBrowserDialog();
             _saveFolderDialog = new FolderBrowserDialog();
-            continueButton.Enabled = false;
+            
+            if(!Directory.Exists(_backupPath) || !Directory.Exists(_savePath))
+                continueButton.Enabled = false;
 
             // Try to set a default game save folder
             _defaultSaveFolder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\EldenRing";
